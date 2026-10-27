@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f5f1eb">
+  <meta name="description" content="A private, customizable diary that works offline.">
+  <title>Daybook — Your private diary</title>
+  <link rel="manifest" href="./manifest.json">
+  <link rel="icon" href="./icon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="./" aria-label="Daybook home">
+      <span class="brand-mark">✳</span>
+      <span>daybook</span>
+    </a>
+    <div class="top-actions">
+      <span id="saveStatus" class="save-status" aria-live="polite">Your diary is private</span>
+      <button id="installBtn" class="button button-quiet" hidden>Install app</button>
+    </div>
+  </header>
+
+  <main class="layout">
+    <aside class="sidebar">
+      <button id="newEntryBtn" class="button button-primary new-entry">＋ New entry</button>
+
+      <label class="search-box">
+        <span aria-hidden="true">⌕</span>
+        <input id="searchInput" type="search" placeholder="Search your diary…" autocomplete="off">
+      </label>
+
+      <nav class="filters" aria-label="Entry filters">
+        <button class="filter active" data-filter="all">All entries <span id="allCount">0</span></button>
+        <button class="filter" data-filter="favorites">★ Favorites <span id="favoriteCount">0</span></button>
+      </nav>
+
+      <div class="list-heading">
+        <span>YOUR ENTRIES</span>
+        <input id="dateFilter" type="month" aria-label="Filter entries by month">
+      </div>
+      <div id="entryList" class="entry-list"></div>
+      <p id="emptyList" class="empty-list">No entries yet. Start with a small moment from today.</p>
+
+      <details class="settings">
+        <summary>⚙ Appearance &amp; data</summary>
+        <div class="settings-content">
+          <label>Theme
+            <select id="themeSelect">
+              <option value="system">Use device setting</option>
+              <option value="light">Light</option>
+              <option value="dark">Dark</option>
+            </select>
+          </label>
+          <label>Accent color
+            <input id="accentInput" type="color" value="#8971c8">
+          </label>
+          <label>Text size
+            <input id="fontSizeInput" type="range" min="14" max="20" value="16">
+          </label>
+          <div class="data-actions">
+            <button id="exportBtn" class="button button-quiet">Export diary</button>
+            <button id="importBtn" class="button button-quiet">Import diary</button>
+            <input id="importFile" type="file" accept="application/json,.json" hidden>
+          </div>
+          <p class="privacy-note">Your entries stay in this browser. Export a backup regularly.</p>
+        </div>
+      </details>
+    </aside>
+
+    <section class="editor-panel" aria-label="Diary editor">
+      <div class="editor-topline">
+        <div>
+          <div class="eyebrow">A LITTLE SPACE FOR YOU</div>
+          <div id="todayLabel" class="today-label"></div>
+        </div>
+        <button id="favoriteBtn" class="icon-button" title="Toggle favorite" aria-label="Toggle favorite">☆</button>
+      </div>
+
+      <label class="date-label" for="entryDate">Entry date</label>
+      <input id="entryDate" class="date-input" type="date">
+
+      <input id="titleInput" class="title-input" type="text" maxlength="120"
+             placeholder="Give this entry a title…" aria-label="Entry title">
+
+      <div class="meta-row">
+        <label class="meta-field">Mood
+          <select id="moodSelect" aria-label="Mood">
+            <option value="">Choose a mood</option>
+            <option value="😊">😊 Happy</option>
+            <option value="😌">😌 Calm</option>
+            <option value="🥰">🥰 Loved</option>
+            <option value="🤔">🤔 Thoughtful</option>
+            <option value="😐">😐 Okay</option>
+            <option value="😔">😔 Low</option>
+            <option value="😣">😣 Stressed</option>
+            <option value="💪">💪 Motivated</option>
+          </select>
+        </label>
+        <label class="meta-field tags-field">Tags
+          <input id="tagsInput" type="text" placeholder="work, family, ideas…">
+        </label>
+      </div>
+
+      <div class="toolbar" aria-label="Text formatting">
+        <button class="format-btn" data-wrap="**" title="Bold">B</button>
+        <button class="format-btn italic-btn" data-wrap="_" title="Italic">I</button>
+        <button class="format-btn" data-prefix="- " title="Bullet list">• List</button>
+        <span class="toolbar-spacer"></span>
+        <button id="promptBtn" class="button button-quiet prompt-button">✦ Writing prompt</button>
+      </div>
+
+      <textarea id="bodyInput" placeholder="What’s on your mind? This space is yours."
+        aria-label="Entry text"></textarea>
+
+      <div class="editor-footer">
+        <span id="wordCount">0 words</span>
+        <div class="editor-actions">
+          <button id="deleteBtn" class="button button-danger" hidden>Delete</button>
+          <button id="saveBtn" class="button button-primary">Save entry</button>
+        </div>
+      </div>
+      <div class="keyboard-hint">Tip: press <kbd>Ctrl</kbd>/<kbd>⌘</kbd> + <kbd>S</kbd> to save.</div>
+    </section>
+  </main>
+
+  <script src="./app.js" defer></script>
+</body>
+</html>
